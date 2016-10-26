@@ -16,6 +16,7 @@ class ByteSelectorTests(c: ByteSelector) extends PeekPokeTester(c) {
 
 class ByteSelectorTester extends ChiselFlatSpec {
   behavior of "ByteSelector"
+  override val backends = Array("verilator")
   backends foreach {backend =>
     it should s"correctly select correct bits from an input in $backend" in {
       Driver(() => new ByteSelector, backend)((c) => new ByteSelectorTests(c)) should be (true)
