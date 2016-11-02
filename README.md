@@ -7,9 +7,6 @@ Chisel is an open-source hardware construction language developed
 at UC Berkeley that supports advanced hardware design using highly
 parameterized generators and layered domain-specific hardware languages.
 
-Visit the [community website](http://chisel.eecs.berkeley.edu/) for more
-information.
-
 
 Getting the Repo
 ----------------
@@ -106,8 +103,12 @@ look at the source and test them out:
 
     $ ./run-examples.sh all
 
-On our [website](http://chisel.eecs.berkeley.edu/) we also have posted
-[documentation](https://chisel.eecs.berkeley.edu/documentation.html).
+The [wiki](https://github.com/ucb-bar/chisel-tutorial/wiki/) attached to this repo contains more information on working with Chisel.
+Additional documentation may be found on the chisel3 repo
+[wiki](https://github.com/ucb-bar/chisel3/wiki/)
+and the
+[documentation](https://chisel.eecs.berkeley.edu/documentation.html)
+section of the [website](https://chisel.eecs.berkeley.edu/).
 
 Fixes/Updates
 -------------
