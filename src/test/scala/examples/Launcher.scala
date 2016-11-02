@@ -38,7 +38,7 @@ object Launcher {
       },
       "Darken" -> { (backendName: String) =>
         Driver(() => new Darken(), backendName) {
-          (c) => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "o" + "u,t.im24")
+          (c) => new DarkenTests(c, getClass.getResourceAsStream("/in.im24"), "out.im24")
         }
       },
       "Adder" -> { (backendName: String) =>
