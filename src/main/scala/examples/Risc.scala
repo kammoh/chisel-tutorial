@@ -13,6 +13,7 @@ class Risc extends Module {
     val valid  = Output(Bool())
     val out    = Output(UInt(width=32))
   })
+
   val file = Mem(256, UInt(width = 32))
   val code = Mem(256, UInt(width = 32))
   val pc   = Reg(init=UInt(0, 8))
@@ -20,7 +21,7 @@ class Risc extends Module {
   val add_op :: imm_op :: Nil = Enum(UInt(), 2)
 
   val inst = code(pc)
-  val op   = inst(31,24)
+  val op   = inst(31,24) // operation
   val rci  = inst(23,16)
   val rai  = inst(15, 8)
   val rbi  = inst( 7, 0)

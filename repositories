@@ -1,5 +1,6 @@
 [repositories]
-  local
-  my-ivy-proxy-releases: https://nexus.kamyar.xyz/repository/ivy-public/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  my-ivy-cache: file:///Volumes/src/thesis/chisel-tutorial/cache/
+  my-ivy-proxy-releases: https://nexus.kamyar.xyz/repository/sonatype/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  my-sonatype-proxy: https://nexus.kamyar.xyz/repository/sonatype/
   my-maven-proxy-releases: https://nexus.kamyar.xyz/repository/maven-public/
 

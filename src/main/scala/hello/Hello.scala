@@ -13,7 +13,7 @@ class Hello extends Module {
 
 class HelloTests(c: Hello) extends PeekPokeTester(c) {
   step(1)
-  expect(c.io.out, 42)
+  expect(c.io.out, 39)
 }
 
 object Hello {
