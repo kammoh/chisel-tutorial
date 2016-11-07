@@ -8,9 +8,17 @@ scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 
-resolvers += Resolver.url("kamyar-maven", url("https://nexus.kamyar.xyz/repository/maven-public/"))
+resolvers := Resolver.url("kamyar-maven", url("https://nexus.kamyar.xyz/repository/maven-public/")) +: resolvers.value
 
-resolvers += Resolver.url("kamyar-ivy", url("https://nexus.kamyar.xyz/repository/ivy-public/"))(Resolver.ivyStylePatterns)
+resolvers := Resolver.url("kamyar-ivy", url("https://nexus.kamyar.xyz/repository/ivy-public/"))(Resolver.ivyStylePatterns) +: resolvers.value
+
+fullResolvers := {
+  Seq(
+    Resolver.url("kamyar-maven", url("https://nexus.kamyar.xyz/repository/maven-public/")),
+    Resolver.url("kamyar-ivy", url("https://nexus.kamyar.xyz/repository/ivy-public/"))(Resolver.ivyStylePatterns)
+  )  ++: fullResolvers.value
+}
+
 
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 // The following are the default development versions, not the "release" versions.
