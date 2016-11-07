@@ -1,0 +1,5 @@
+[repositories]
+  local
+  my-ivy-proxy-releases: https://nexus.kamyar.xyz/repository/ivy-public/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  my-maven-proxy-releases: https://nexus.kamyar.xyz/repository/maven-public/
+

@@ -8,7 +8,9 @@ scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:reflectiveCalls")
 
-resolvers += "jitpack" at "https://jitpack.io"
+resolvers += Resolver.url("kamyar-maven", url("https://nexus.kamyar.xyz/repository/maven-public/"))
+
+resolvers += Resolver.url("kamyar-ivy", url("https://nexus.kamyar.xyz/repository/ivy-public/"))(Resolver.ivyStylePatterns)
 
 // Provide a managed dependency on X if -DXVersion="" is supplied on the command line.
 // The following are the default development versions, not the "release" versions.
@@ -17,8 +19,9 @@ val defaultVersions = Map(
   "chisel-iotesters" -> "1.1-SNAPSHOT"
   )
 
-libraryDependencies ++= (Seq("chisel3","chisel-iotesters").map {
-  dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) })
+
+libraryDependencies ++= Seq("chisel3","chisel-iotesters").map {
+  dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
