@@ -12,5 +12,5 @@
 
 -Dsbt.log.format=true
 -Dsbt.override.build.repos=true
-
+-Dsbt.repository.config=repositories
 
