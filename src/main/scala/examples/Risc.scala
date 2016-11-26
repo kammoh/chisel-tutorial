@@ -17,7 +17,7 @@ class Risc extends Module {
   val code = Mem(256, UInt(32.W))
   val pc   = Reg(init=0.U(8.W))
   
-  val add_op :: imm_op :: Nil = Enum(UInt(), 2)
+  val add_op :: imm_op :: Nil = Enum(2)
 
   val inst = code(pc)
   val op   = inst(31,24)

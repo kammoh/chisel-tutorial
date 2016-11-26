@@ -1,4 +1,4 @@
-organization := "edu.berkeley.cs"
+organization := "com.github.kammoh"
 
 version := "3.1-SNAPSHOT"
 
@@ -12,11 +12,10 @@ scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-language:refle
 // The following are the default development versions, not the "release" versions.
 val defaultVersions = Map(
   "chisel3" -> "3.1-SNAPSHOT",
-  "chisel-iotesters" -> "1.2-SNAPSHOT"
-  )
+  "chisel-iotesters" -> "1.2-SNAPSHOT")
 
-libraryDependencies ++= (Seq("chisel3","chisel-iotesters").map {
-  dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) })
+libraryDependencies ++= Seq("chisel3","chisel-iotesters").map {
+  dep: String => "com.github.kammoh" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
@@ -26,6 +25,5 @@ resolvers ++= Seq(
 // Recommendations from http://www.scalatest.org/user_guide/using_scalatest_with_sbt
 logBuffered in Test := false
 
-// Disable parallel execution when running te
-//  Running tests in parallel on Jenkins currently fails.
+// Running tests in parallel on Jenkins currently fails.
 parallelExecution in Test := false
