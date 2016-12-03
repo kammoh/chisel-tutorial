@@ -18,6 +18,7 @@ libraryDependencies ++= Seq("chisel3","chisel-iotesters").map {
   dep: String => "com.github.kammoh" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
 
 resolvers ++= Seq(
+  Resolver.defaultLocal,
   Resolver.sonatypeRepo("snapshots"),
   Resolver.sonatypeRepo("releases")
 )

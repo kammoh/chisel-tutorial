@@ -1,7 +1,8 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters._
+import firrtl_interpreter.InterpreterOptions
 
 class AdderTests(c: Adder) extends PeekPokeTester(c) {
   for (t <- 0 until 4) {
@@ -21,10 +22,15 @@ class AdderTests(c: Adder) extends PeekPokeTester(c) {
 }
 
 class AdderTester extends ChiselFlatSpec {
+  override val backends: Array[String] = Array("firrtl") //"verilator")
   behavior of "Adder"
   backends foreach {backend =>
     it should s"correctly add randomly generated numbers $backend" in {
-      Driver(() => new Adder(8))(c => new AdderTests(c)) should be (true)
+      val manager = new TesterOptionsManager {
+        testerOptions = TesterOptions(backendName = backend, testerSeed = 7L)
+        interpreterOptions = InterpreterOptions(setVerbose = false, writeVCD = true)
+      }
+      Driver.execute(() => new Adder(8), manager)(c => new AdderTests(c)) should be (true)
     }
   }
 }

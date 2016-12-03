@@ -1,8 +1,6 @@
 // See LICENSE.txt for license details.
 package solutions
-
 import chisel3._
-// import Counter._
 
 object Counter {
 
@@ -14,8 +12,8 @@ object Counter {
   // amt only when en is asserted
   // ---------------------------------------- \\
 
-  def counter(max: UInt, en: Bool, amt: UInt): UInt = {
-    val x = Reg(init=0.asUInt(max.getWidth.W))
+  def apply(max: UInt, en: Bool, amt: UInt): UInt = {
+    val x = Reg(init = 0.U(max.getWidth.W))
     when (en) { x := wrapAround(x + amt, max) }
     x
   }
@@ -31,6 +29,5 @@ class Counter extends Module {
     val tot = Output(UInt(8.W))
   })
 
-  io.tot := Counter.counter(255.U, io.inc, io.amt)
-
+  io.tot := Counter(255.U, io.inc, io.amt)
 }

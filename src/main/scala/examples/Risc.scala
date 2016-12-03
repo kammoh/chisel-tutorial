@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3._
+import chisel3.core._
 import chisel3.util._
 
 class Risc extends Module {
@@ -13,9 +13,9 @@ class Risc extends Module {
     val valid  = Output(Bool())
     val out    = Output(UInt(32.W))
   })
-  val file = Mem(256, UInt(32.W))
-  val code = Mem(256, UInt(32.W))
-  val pc   = Reg(init=0.U(8.W))
+  val file = Mem(256, UInt(32.W))  // register file, which is the only data memory
+  val code = Mem(256, UInt(32.W))  // code scratch-pad RAM
+  val pc   = Reg(init = 0.U(8.W))  // program counter
   
   val add_op :: imm_op :: Nil = Enum(2)
 

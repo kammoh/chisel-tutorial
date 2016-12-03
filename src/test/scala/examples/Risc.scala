@@ -1,8 +1,10 @@
 // See LICENSE.txt for license details.
 package examples
 
-
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3._
+import chisel3.util._
+import chisel3.iotesters._
+import firrtl_interpreter.InterpreterOptions
 
 class RiscTests(c: Risc) extends PeekPokeTester(c) {
   def wr(addr: BigInt, data: BigInt)  = {
@@ -21,20 +23,21 @@ class RiscTests(c: Risc) extends PeekPokeTester(c) {
     poke(c.io.boot, 0)
     step(1)
   }
-  /*
-  def I (op: UInt, rc: Int, ra: Int, rb: Int) = 
-    Cat(op, UInt(rc, 8), UInt(ra, 8), UInt(rb, 8))
-*/
 
-  def I (op: Chisel.UInt, rc: Int, ra: Int, rb: Int) = 
-    ((op.litValue() & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
+  def I (op: UInt, rc: Int, ra: Int, rb: Int) =
+    Cat(op, rc.U(8.W), ra.U(8.W), rb.U(8.W))
+
+
+//  def I (op: UInt, rc: Int, ra: Int, rb: Int) =
+//    ((op.litValue() & 1) << 24) | ((rc & Integer.parseInt("FF", 16)) << 16) | ((ra & Integer.parseInt("FF", 16)) << 8) | (rb & Integer.parseInt("FF", 16))
+
   val app  = Array(I(c.imm_op,   1, 0, 1), // r1 <- 1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op,   1, 1, 1), // r1 <- r1 + r1
                    I(c.add_op, 255, 1, 0)) // rh <- r1
 
   wr(0, 0) // skip reset
-  for (addr <- 0 until app.length) 
+  for (addr <- app.indices)
     wr(addr, app(addr))
   boot()
   var k = 0
@@ -46,11 +49,12 @@ class RiscTests(c: Risc) extends PeekPokeTester(c) {
 }
 
 class RiscTester extends ChiselFlatSpec {
-  behavior of "Risc"
-  backends foreach {backend =>
-    it should s"run simple fsm implementation in $backend" in {
-      Driver(() => new Risc)(c => new RiscTests(c)) should be (true)
+  it should "run correctly" in {
+    val manager = new TesterOptionsManager {
+      testerOptions = TesterOptions(backendName = "firrtl", testerSeed = 7L)
+      interpreterOptions = InterpreterOptions(setVerbose = false, writeVCD = true)
     }
+    iotesters.Driver.execute(() => new Risc, manager)(c => new RiscTests(c)) should be (true)
   }
 }
 
