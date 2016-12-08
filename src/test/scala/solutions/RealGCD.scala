@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
+import chisel3.iotesters.{ChiselFlatSpec, Driver, PeekPokeTester}
 
 class RealGCDTests(c: RealGCD) extends PeekPokeTester(c) {
   val inputs = List( (48, 32), (7, 3), (100, 10) )
@@ -27,4 +27,13 @@ class RealGCDTests(c: RealGCD) extends PeekPokeTester(c) {
     i += 1
   } while (t < 100 && i < 3)
   if (t >= 100) fail
+}
+
+class RealGcdTester extends ChiselFlatSpec {
+  behavior of "GCD"
+  it should "compute GCD of two numbers correctly" in {
+    Driver.execute(() => new RealGCD(), utils.manager) {
+      (c) => new RealGCDTests(c)
+    } should be(true)
+  }
 }

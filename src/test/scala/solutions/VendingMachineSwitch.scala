@@ -1,10 +1,7 @@
 // See LICENSE.txt for license details.
 package solutions
 
-import Chisel.iotesters.PeekPokeTester
-import chisel3.iotesters
-import chisel3.iotesters.{ChiselFlatSpec, TesterOptions, TesterOptionsManager}
-import firrtl_interpreter.InterpreterOptions
+import chisel3.iotesters._
 
 class VendingMachineSwitchTests(c: VendingMachineSwitch) extends PeekPokeTester(c) {
   var money = 0
@@ -34,11 +31,7 @@ class VendingMachineSwitchTests(c: VendingMachineSwitch) extends PeekPokeTester(
 
 class VendingMachineSwitchTester extends ChiselFlatSpec {
   it should "run correctly" in {
-    val manager = new TesterOptionsManager {
-      testerOptions = testerOptions.copy(backendName = "firrtl", testerSeed = 7L)
-      interpreterOptions = interpreterOptions.copy(writeVCD = true)
-    }
-    iotesters.Driver.execute(() => new VendingMachineSwitch, manager)(c => new VendingMachineSwitchTests(c)) should be (true)
+    Driver.execute(() => new VendingMachineSwitch, utils.manager)(c => new VendingMachineSwitchTests(c)) should be (true)
   }
 }
 

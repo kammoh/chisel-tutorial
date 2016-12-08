@@ -1,7 +1,7 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3.iotesters.{PeekPokeTester, Driver, ChiselFlatSpec}
+import chisel3.iotesters.Driver
 import utils.TutorialRunner
 
 object Launcher {

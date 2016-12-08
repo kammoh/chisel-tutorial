@@ -2,8 +2,16 @@
 
 package utils
 
+import chisel3.iotesters.TesterOptionsManager
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Properties.envOrElse
+
+object manager extends TesterOptionsManager {
+  testerOptions = testerOptions.copy(backendName = "firrtl", testerSeed = 7L)
+  interpreterOptions = interpreterOptions.copy(writeVCD = true)
+}
+
 
 object TutorialRunner {
   def apply(tutorialMap: Map[String, String => Boolean], args: Array[String]): Unit = {
