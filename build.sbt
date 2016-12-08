@@ -14,8 +14,9 @@ val defaultVersions = Map(
   "chisel3" -> "3.1-SNAPSHOT",
   "chisel-iotesters" -> "1.2-SNAPSHOT")
 
-libraryDependencies ++= Seq("chisel3","chisel-iotesters").map {
-  dep: String => "com.github.kammoh" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) }
+libraryDependencies ++= Seq("chisel3", "chisel-iotesters").map {
+  dep: String => "com.github.kammoh" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep))
+}
 
 resolvers ++= Seq(
   Resolver.defaultLocal,

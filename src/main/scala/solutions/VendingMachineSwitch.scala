@@ -10,8 +10,11 @@ class VendingMachineSwitch extends Module {
     val dime   = Input(Bool())
     val valid  = Output(Bool())
   })
+
   val s_idle :: s_5 :: s_10 :: s_15 :: s_ok :: Nil = Enum(5)
   val state = Reg(init = s_idle)
+
+  //printf(p" state: $state \t io.valid: ${io.valid}\n")
   
   switch (state) {
     is (s_idle) {

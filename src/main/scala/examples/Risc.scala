@@ -1,7 +1,8 @@
 // See LICENSE.txt for license details.
 package examples
 
-import chisel3.core._
+import chisel3._
+//import chisel3.core._
 import chisel3.util._
 
 class Risc extends Module {
@@ -32,6 +33,8 @@ class Risc extends Module {
   io.valid := false.B
   io.out   := 0.U
   rc       := 0.U
+
+  //printf(p"pc=${Hexadecimal(pc)}\n")
 
   when (io.isWr) {
     code(io.wrAddr) := io.wrData

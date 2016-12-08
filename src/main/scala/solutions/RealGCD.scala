@@ -17,24 +17,37 @@ class RealGCD extends Module {
 
   val x = Reg(UInt())
   val y = Reg(UInt())
-  val p = Reg(init=false.B)
 
-  io.in.ready := !p
+  val busy = Reg(init=false.B)
 
-  when (io.in.valid && !p) {
+  io.in.ready := !busy
+
+
+  when (io.in.valid && !busy) {
     x := io.in.bits.a
     y := io.in.bits.b
-    p := true.B
-  } 
+    busy := true.B
+  }
 
-  when (p) {
-    when (x > y)  { x := y; y := x } 
-    .otherwise    { y := y - x }
+  when (busy) {
+    when (x > y)  {  // swap
+      x := y
+      y := x
+    } otherwise   {  // subtract
+      y := y - x
+    }
   }
 
   io.out.bits  := x
-  io.out.valid := y === 0.U && p
+
+  io.out.valid := y === 0.U && busy
   when (io.out.valid) {
-    p := false.B
+    busy := false.B
   }
+
+  //io.out.valid := false.B
+  //when (y === 0.U && busy) {
+  //  busy := false.B
+  //  io.out.valid := true.B
+  //}
 }
